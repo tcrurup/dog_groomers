@@ -1,0 +1,3 @@
+class Groomer < User
+
+end
