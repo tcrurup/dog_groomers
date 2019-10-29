@@ -26,7 +26,7 @@ DOGS = [
     }
 ]
 
-tony = User.create(USERS[0])
+tony = Client.create(USERS[0])
 
 DOGS.each do |dog|
     tony.create_dog(dog)

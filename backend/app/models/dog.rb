@@ -5,7 +5,7 @@ class Dog < ActiveRecord::Base
     #weight (integer) - The weight of the dog in pounds
     
     #ASSOCIATIONS
-    has_many :user_dogs
-    has_many :users, 
-        through: :user_dogs
+    has_many :client_dogs
+    has_many :clients, 
+        through: :client_dogs
 end
