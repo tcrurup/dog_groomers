@@ -12,4 +12,8 @@ class Dog < ActiveRecord::Base
     has_many :owners, 
         through: :client_dogs,
         source: :client
+
+    def add_owner(client)
+        self.owners << client
+    end
 end

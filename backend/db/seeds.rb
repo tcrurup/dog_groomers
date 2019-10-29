@@ -63,8 +63,8 @@ jane = Groomer.create(GROOMERS[0])
 
 DOGS.each do |dog|
     dog = tony.create_dog(dog)
-    dog.owners << jen
+    dog.add_owner(jen)
 end
 
-appointment = Appointment.create(groomer_id: jane.id, dog_id: tony.dogs.first.id)
-appointment.grooming_tasks << GroomingTask.all[0]
+jane.create_appointment(tony.dogs[0], GroomingTask.all)
+
