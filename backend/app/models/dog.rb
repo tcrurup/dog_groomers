@@ -13,6 +13,10 @@ class Dog < ActiveRecord::Base
         through: :client_dogs,
         source: :client
 
+    has_many :breed_dogs
+    has_many :breeds,
+        through: :breed_dogs
+
     def add_owner(client)
         self.owners << client
     end
