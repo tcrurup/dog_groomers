@@ -10,7 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_29_184019) do
+ActiveRecord::Schema.define(version: 2019_10_29_204234) do
+
+  create_table "appointment_grooming_tasks", force: :cascade do |t|
+    t.integer "appointment_id"
+    t.integer "grooming_task_id"
+  end
 
   create_table "appointments", force: :cascade do |t|
     t.integer "groomer_id"
@@ -32,6 +37,12 @@ ActiveRecord::Schema.define(version: 2019_10_29_184019) do
   end
 
   create_table "groomers", force: :cascade do |t|
+  end
+
+  create_table "grooming_tasks", force: :cascade do |t|
+    t.string "task_name"
+    t.string "description"
+    t.integer "base_price"
   end
 
   create_table "users", force: :cascade do |t|

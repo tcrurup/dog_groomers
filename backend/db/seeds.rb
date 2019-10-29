@@ -40,6 +40,23 @@ DOGS = [
     }
 ]
 
+GROOMING_TASKS = [
+    {
+        task_name: "Nails",
+        description: "Cut dog's nails and smooth finish",
+        base_price: 10
+    },
+    {
+        task_name: "Bathe",
+        description: "Wash, dry, and brush the dog",
+        base_price: 10
+    }
+]
+
+GROOMING_TASKS.each do |task|
+    GroomingTask.create(task)
+end
+
 tony = Client.create(USERS[0])
 jen = Client.create(USERS[1])
 jane = Groomer.create(GROOMERS[0])
@@ -49,4 +66,5 @@ DOGS.each do |dog|
     dog.owners << jen
 end
 
-Appointment.create(groomer_id: jane.id, dog_id: tony.dogs.first.id)
+appointment = Appointment.create(groomer_id: jane.id, dog_id: tony.dogs.first.id)
+appointment.grooming_tasks << GroomingTask.all[0]
