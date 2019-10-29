@@ -5,6 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+BREEDS = [
+    {name: "American Staffordshire Terrier"},
+    {name: "Labrador Retreiver"},
+    {name: "Husky"}
+]
+
 USERS = [
     {
         username: "trurup",
@@ -53,6 +59,7 @@ GROOMING_TASKS = [
     }
 ]
 
+Breed.create(BREEDS)
 GROOMING_TASKS.each do |task|
     GroomingTask.create(task)
 end
