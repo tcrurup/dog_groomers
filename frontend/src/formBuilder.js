@@ -2,37 +2,25 @@ class FormBuilder{
 
     
     constructor(action, method){
-        this.newForm(action, method)
-        this.formElements = [];
+        this.form = document.createElement('form')
+        this.formTable = document.createElement('table')
+        this.form.appendChild(this.formTable)
+        this.formRows = [];
         return this
     }
 
+    //**********FUNCTIONS**********
+
     addInputElement(type, name){        
-        this.formElements.push(new FormRow().asFormInput(type, name))
+        this.formRows.push(new FormRow().asFormInput(type, name))
     }
 
     addElementBlock(element){        
-        this.formElements.push(new FormRow().asElementBlock(element))
-    }
-
-
-    createFormLabel(name){
-        let label = document.createElement("label")
-            label.for = name
-            label.innerHTML = `${FormBuilder.capitalize(name)}: `
-        return label
-    }
-
-    createFormInput(type, name){
-        let input = document.createElement("input")
-            input.type = type
-            input.id = name
-            input.name = name
-        return input
-    }
+        this.formRows.push(new FormRow().asElementBlock(element))
+    }    
 
     finalize(cbOnSubmit){
-        this.formElements.forEach(element => {this.form_table.appendChild(element)})
+        this._appendAllRowsToTable()
         let element = document.createElement('button')
         element.innerHTML = 'Submit'
         element.addEventListener('click', cbOnSubmit)
@@ -40,20 +28,17 @@ class FormBuilder{
         return this.form
     }
 
-    newForm(formAction, formMethod){
-        let element = document.createElement("form") 
-        element.action = formAction
-        element.method = formMethod
-        this.form = element
-        this.setFormTable()
-    }
-
-    setFormTable(){
-        this.form_table = document.createElement("table")
-        this.form.appendChild(this.form_table)
-    }
+    //**********STATIC**********
 
     static capitalize(string){
         return `${string.charAt(0).toUpperCase()}${string.slice(1)}`
-    }    
+    } 
+    
+    //**********'PRIVATE'**********
+
+    _appendAllRowsToTable(){
+        this.formRows.forEach( element => {
+            this.formTable.appendChild(element)
+        });
+    }
 }

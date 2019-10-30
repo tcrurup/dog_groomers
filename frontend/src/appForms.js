@@ -1,7 +1,7 @@
 class AppForms{
 
     static login(){
-        let form = new FormBuilder(LOGIN_URL, "POST")
+        let form = new FormBuilder()
         form.addInputElement('text', 'username')
         form.addInputElement('password', 'password')
         
@@ -44,7 +44,7 @@ class AppForms{
     }
 
     static signup(){
-        let form = new FormBuilder(SIGNUP_URL, "POST")
+        let form = new FormBuilder()
         form.addInputElement('text', 'username')
         form.addInputElement('password', 'password')
 
@@ -85,7 +85,7 @@ class AppForms{
         return form.finalize(cbOnSubmit)
     }
 
-    
+
     
 
 }
