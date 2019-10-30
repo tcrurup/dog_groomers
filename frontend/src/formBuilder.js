@@ -7,46 +7,12 @@ class FormBuilder{
         return this
     }
 
-    addInputElement(type, name){
-        let form_row = document.createElement('tr')
-        let row_header = document.createElement('th')
-        let row_data = document.createElement('td')
-        
-
-        row_header.appendChild(this.createFormLabel(name))
-        row_data.appendChild(this.createFormInput(type, name))
-        
-
-        form_row.appendChild(row_header)
-        form_row.appendChild(row_data)
-        
-        this.formElements.push(form_row)
+    addInputElement(type, name){        
+        this.formElements.push(new FormRow().asFormInput(type, name))
     }
 
-    addStringBreak(string){
-        let form_row = document.createElement('tr')
-        let form_data = document.createElement('td')
-
-        form_data.setAttribute('colspan', '2')
-        form_data.innerHTML = string
-        form_data.className = 'stringBreak'
-
-        form_row.appendChild(form_data)
-        
-        this.formElements.push(form_row)
-    }
-
-    addElementBlock(element){
-        let form_row = document.createElement('tr')
-        let form_data = document.createElement('td')
-
-        form_data.setAttribute('colspan', '2')
-        form_data.appendChild(element)
-        form_data.className = 'stringBreak'
-
-        form_row.appendChild(form_data)
-        
-        this.formElements.push(form_row)
+    addElementBlock(element){        
+        this.formElements.push(new FormRow().asElementBlock(element))
     }
 
 
