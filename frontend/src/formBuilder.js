@@ -1,72 +1,3 @@
-const BASE_URL = "http://localhost:3000"
-const LOGIN_URL = `${BASE_URL}/login`
-const SIGNUP_URL = `${BASE_URL}/signup`
-
-document.addEventListener('DOMContentLoaded', function(){
-    fetch(LOGIN_URL)
-    .then( response => response.json() )
-    .then( object => {
-        showLogInPage()
-    })
-    .catch( error => console.log(error) );
-});
-
-function showLogInPage(){
-    document.querySelector('main').appendChild(AppForms.login());
-}
-
-
-class LinkBuilder{
-
-    constructor(url){
-        this.url = url
-    }
-
-    static hyperlink_to(url, text){
-        return `<a href=${url}>${text}</a>`
-    }
-}
-
-class AppForms{
-
-    static login(){
-        let form = new FormBuilder(LOGIN_URL, "POST")
-        form.addInputElement('text', 'username')
-        form.addInputElement('password', 'password')
-        form.addStringBreak(`Don't have an account? ${LinkBuilder.hyperlink_to(SIGNUP_URL, 'Sign up!')}`)
-
-        let cbOnSubmit = event => {
-
-            event.preventDefault();
-            let formData = {
-                username: "username",
-                password: "password"
-            }
-
-            let config = {
-                method: "POST",
-                body: JSON.stringify(formData),
-                headers:{
-                    "Content-Type" : "application/json",
-                    "Accept" : "application/json"
-                }
-            }
-
-            fetch(LOGIN_URL, config)
-            .then(response => response.json())
-            .then(object => console.log(object))
-            .catch(error => alert(error.message))
-        }
-
-        return form.finalize(cbOnSubmit)
-    }
-
-    static signup(){
-
-    }
-
-}
-
 class FormBuilder{
 
     
@@ -146,4 +77,3 @@ class FormBuilder{
         return `${string.charAt(0).toUpperCase()}${string.slice(1)}`
     }    
 }
-
