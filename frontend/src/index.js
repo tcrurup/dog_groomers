@@ -6,13 +6,25 @@ document.addEventListener('DOMContentLoaded', function(){
     fetch(LOGIN_URL)
     .then( response => response.json() )
     .then( object => {
-        showLogInPage()
+       showLoginPage()
     })
     .catch( error => console.log(error) );
 });
 
-function showLogInPage(){
+let showLoginPage = (event) => {
+    if(event){ event.preventDefault() }
+    clearMain()
     document.querySelector('main').appendChild(AppForms.login());
+}
+
+let showSignUpPage = (event) => {
+    if(event){ event.preventDefault() }
+    clearMain()
+    document.querySelector('main').appendChild(AppForms.signup())
+}
+
+function clearMain(){
+    document.querySelector('main').innerHTML = ''
 }
 
 

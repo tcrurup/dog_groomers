@@ -36,6 +36,20 @@ class FormBuilder{
         this.formElements.push(form_row)
     }
 
+    addElementBlock(element){
+        let form_row = document.createElement('tr')
+        let form_data = document.createElement('td')
+
+        form_data.setAttribute('colspan', '2')
+        form_data.appendChild(element)
+        form_data.className = 'stringBreak'
+
+        form_row.appendChild(form_data)
+        
+        this.formElements.push(form_row)
+    }
+
+
     createFormLabel(name){
         let label = document.createElement("label")
             label.for = name
