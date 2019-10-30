@@ -31,3 +31,7 @@ table th, tr{
     text-align: right;
 }
 
+table td.stringBreak{
+    text-align: center;
+}
+

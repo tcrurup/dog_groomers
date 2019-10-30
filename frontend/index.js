@@ -12,12 +12,7 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 function showLogInPage(){
-    let mainNode = document.querySelector('main');
-    let form = new FormBuilder(LOGIN_URL, "POST")
-    form.addInputElement('text', 'username')
-    form.addInputElement('password', 'password')
-    form.addStringBreak(`Don't have an account? ${LinkBuilder.hyperlink_to(SIGNUP_URL, 'Sign up!')}`)
-    mainNode.appendChild(form.finalize())
+    document.querySelector('main').appendChild(AppForms.login());
 }
 
 
@@ -32,49 +27,82 @@ class LinkBuilder{
     }
 }
 
+class AppForms{
+
+    static login(){
+        let form = new FormBuilder(LOGIN_URL, "POST")
+        form.addInputElement('text', 'username')
+        form.addInputElement('password', 'password')
+        form.addStringBreak(`Don't have an account? ${LinkBuilder.hyperlink_to(SIGNUP_URL, 'Sign up!')}`)
+
+        let cbOnSubmit = event => {
+
+            event.preventDefault();
+            let formData = {
+                username: "username",
+                password: "password"
+            }
+
+            let config = {
+                method: "POST",
+                body: JSON.stringify(formData),
+                headers:{
+                    "Content-Type" : "application/json",
+                    "Accept" : "application/json"
+                }
+            }
+
+            fetch(LOGIN_URL, config)
+            .then(response => response.json())
+            .then(object => console.log(object))
+            .catch(error => alert(error.message))
+        }
+
+        return form.finalize(cbOnSubmit)
+    }
+
+    static signup(){
+
+    }
+
+}
+
 class FormBuilder{
 
     
     constructor(action, method){
-        let element = document.createElement("form") 
-        element.action = action
-        element.method = method
-
-        let table = document.createElement("table")
-        element.appendChild(table)
-        
-        this.form = element;
-        this.form_table = table;
+        this.newForm(action, method)
+        this.formElements = [];
         return this
     }
 
-
-
     addInputElement(type, name){
         let form_row = document.createElement('tr')
-        let form_header = document.createElement('th')
-        let form_data = document.createElement('td')
+        let row_header = document.createElement('th')
+        let row_data = document.createElement('td')
         
 
-        form_header.appendChild(this.createFormLabel(name))
-        form_data.appendChild(this.createFormInput(type, name))
+        row_header.appendChild(this.createFormLabel(name))
+        row_data.appendChild(this.createFormInput(type, name))
         
-        let row_data = [form_header, form_data]
-        row_data.forEach( element =>{ form_row.appendChild(element) })
+
+        form_row.appendChild(row_header)
+        form_row.appendChild(row_data)
         
-        this.form_table.appendChild(form_row)
+        this.formElements.push(form_row)
     }
 
     addStringBreak(string){
         let form_row = document.createElement('tr')
         let form_data = document.createElement('td')
 
-        form_data.colspan = 2;
+        form_data.setAttribute('colspan', '2')
         form_data.innerHTML = string
+        form_data.className = 'stringBreak'
 
         form_row.appendChild(form_data)
         
-        this.form_table.appendChild(form_row)
+        this.formElements.push(form_row)
     }
 
     createFormLabel(name){
@@ -92,12 +120,26 @@ class FormBuilder{
         return input
     }
 
-    finalize(){
+    finalize(cbOnSubmit){
+        this.formElements.forEach(element => {this.form_table.appendChild(element)})
         let element = document.createElement('button')
-        element.type = 'submit'
         element.innerHTML = 'Submit'
+        element.addEventListener('click', cbOnSubmit)
         this.form.appendChild(element)
         return this.form
+    }
+
+    newForm(formAction, formMethod){
+        let element = document.createElement("form") 
+        element.action = formAction
+        element.method = formMethod
+        this.form = element
+        this.setFormTable()
+    }
+
+    setFormTable(){
+        this.form_table = document.createElement("table")
+        this.form.appendChild(this.form_table)
     }
 
     static capitalize(string){
