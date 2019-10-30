@@ -1,0 +1,33 @@
+form {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 50%;
+}
+
+form label {
+    margin-right: .5vw;
+}
+
+form button {
+    margin: auto;
+    width: 15%;
+}
+
+header {
+    text-align: center;
+}
+
+main {
+    margin: auto;
+    width: 90vw;
+}
+
+table {
+    margin: auto;
+}
+
+table th, tr{
+    text-align: right;
+}
+
