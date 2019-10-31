@@ -21,8 +21,8 @@ class AppForms{
 
             event.preventDefault();
             let formData = {
-                username: "username",
-                password: "password"
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
             }
 
             let config = {
@@ -36,7 +36,7 @@ class AppForms{
 
             fetch(LOGIN_URL, config)
             .then(response => response.json())
-            .then(object => console.log(object))
+            .then(object => alert("Login Success!"))
             .catch(error => alert(error.message))
         }
 
