@@ -2,23 +2,14 @@ class AppForms{
 
     static login(){
 
-        let formElements = {
+        const formElements = {
             'username': 'text',
             'password': 'password'
         }
         let form = new FormBuilder(formElements)
         
-        let formFooter = document.createElement('span')
-        formFooter.innerHTML = "Don't have an account?  "
-        
-        let signUp = document.createElement('a')
-        signUp.innerHTML = 'Sign up!'
-        signUp.href=''
-        signUp.addEventListener('click', showSignUpPage)
-
-        formFooter.appendChild(signUp)
-
-        form.addElementBlock(formFooter)
+        form.createFooter(`Don't have an account?  `)
+        form.footer.appendChild(new LinkBuilder('Sign up', showSignUpPage).link_to_callback())
 
         let cbOnSubmit = event => {
 
@@ -47,24 +38,18 @@ class AppForms{
     }
 
     static signup(){
-        let form_elements = {
+
+        const form_elements = {
             'username': 'text',
             'password': 'password',
             'firstName': 'text',
             'lastName': 'text'
         }
+
         let form = new FormBuilder(form_elements)
 
-        let formFooter = document.createElement('span')
-        formFooter.innerHTML = "Already have an account?  "
-
-        let login = document.createElement('a')
-        login.innerHTML = 'Login'
-        login.href=''
-        login.addEventListener('click', showLoginPage)
-
-        formFooter.appendChild(login)
-        form.addElementBlock(formFooter)
+        form.createFooter("Already have an account?  ")
+        form.footer.appendChild(new LinkBuilder('Login', showLoginPage).link_to_callback())
 
         let cbOnSubmit = event => {
 

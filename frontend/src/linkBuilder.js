@@ -1,10 +1,15 @@
 class LinkBuilder{
 
-    constructor(url){
-        this.url = url
+    constructor(text, callback){
+        this.text = text
+        this.callback = callback
     }
 
-    static hyperlink_to(url, text){
-        return `<a href=${url}>${text}</a>`
+    link_to_callback(){
+        let link = document.createElement('a')
+        link.innerHTML = this.text
+        link.href=''
+        link.addEventListener('click', this.callback)
+        return link
     }
 }

@@ -32,14 +32,17 @@ class FormBuilder{
         return element;
     }
 
-    addUserFields(){
-
+    addSubmitButtonAndFinalize(cbOnSubmit){
+        this.addElementBlock(this.footer)
+        this._appendAllRowsToTable()
+        this.addSubmitButton(cbOnSubmit)               
+        return this.form
     }
 
-    addSubmitButtonAndFinalize(cbOnSubmit){
-        this._appendAllRowsToTable()
-        this.addSubmitButton(cbOnSubmit)       
-        return this.form
+    createFooter(string){
+        let element = document.createElement('span')
+        element.innerHTML = string
+        this.footer = element
     }
 
     //**********STATIC**********
