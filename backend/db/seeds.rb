@@ -14,11 +14,13 @@ BREEDS = [
 USERS = [
     {
         username: "trurup",
+        password: "tactics",
         first_name: "Tony",
         last_name: "Rurup"
     },
     {
         username: "jkomperda",
+        password: "bolt",
         first_name: "Jen",
         last_name: "Komperda"
     }

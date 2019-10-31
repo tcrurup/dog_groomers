@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
     #first_name (string) -This Users first name
     #last_name (string)  -This Users last name
 
+    has_secure_password
+    
     #VALIDATIONS
     validates :username,
         presence: true,

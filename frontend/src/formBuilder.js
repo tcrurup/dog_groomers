@@ -17,14 +17,19 @@ class FormBuilder{
 
     addElementBlock(element){        
         this.formRows.push(new FormRow().asElementBlock(element))
-    }    
-
-    finalize(cbOnSubmit){
-        this._appendAllRowsToTable()
+    }
+    
+    addSubmitButton(callback){
         let element = document.createElement('button')
         element.innerHTML = 'Submit'
-        element.addEventListener('click', cbOnSubmit)
-        this.form.appendChild(element)
+        element.addEventListener('click', callback)
+        this.form.appendChild(element) 
+        return element;
+    }
+
+    addSubmitButtonAndFinalize(cbOnSubmit){
+        this._appendAllRowsToTable()
+        this.addSubmitButton(cbOnSubmit)       
         return this.form
     }
 

@@ -40,13 +40,15 @@ class AppForms{
             .catch(error => alert(error.message))
         }
 
-        return form.finalize(cbOnSubmit)
+        return form.addSubmitButtonAndFinalize(cbOnSubmit)
     }
 
     static signup(){
         let form = new FormBuilder()
         form.addInputElement('text', 'username')
         form.addInputElement('password', 'password')
+        form.addInputElement('text', 'firstName')
+        form.addInputElement('text', 'lastName')
 
         let formFooter = document.createElement('span')
         formFooter.innerHTML = "Already have an account?  "
@@ -82,7 +84,7 @@ class AppForms{
             .catch(error => alert(error.message))
         }
 
-        return form.finalize(cbOnSubmit)
+        return form.addSubmitButtonAndFinalize(cbOnSubmit)
     }
 
 
