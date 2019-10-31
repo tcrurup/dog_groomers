@@ -64,9 +64,12 @@ class AppForms{
         let cbOnSubmit = event => {
 
             event.preventDefault();
+            
             let formData = {
-                username: "username",
-                password: "password"
+                username: document.getElementById('username').value,
+                password_digest: document.getElementById('password').value,
+                first_name: document.getElementById('firstName').value,
+                last_name: document.getElementById('lastName').value
             }
 
             let config = {
@@ -78,7 +81,7 @@ class AppForms{
                 }
             }
 
-            fetch(LOGIN_URL, config)
+            fetch(CLIENT_URL, config)
             .then(response => response.json())
             .then(object => console.log(object))
             .catch(error => alert(error.message))

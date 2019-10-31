@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
 
   get 'signup' => 'clients#new'
+  post 'clients' => 'clients#create'
 
 end

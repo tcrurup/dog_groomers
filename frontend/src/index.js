@@ -1,6 +1,7 @@
 const BASE_URL = "http://localhost:3000"
 const LOGIN_URL = `${BASE_URL}/login`
 const SIGNUP_URL = `${BASE_URL}/signup`
+const CLIENT_URL = `${BASE_URL}/clients`
 
 document.addEventListener('DOMContentLoaded', function(){
     fetch(LOGIN_URL)
