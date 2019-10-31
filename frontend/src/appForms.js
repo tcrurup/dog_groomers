@@ -1,9 +1,12 @@
 class AppForms{
 
     static login(){
-        let form = new FormBuilder()
-        form.addInputElement('text', 'username')
-        form.addInputElement('password', 'password')
+
+        let formElements = {
+            'username': 'text',
+            'password': 'password'
+        }
+        let form = new FormBuilder(formElements)
         
         let formFooter = document.createElement('span')
         formFooter.innerHTML = "Don't have an account?  "
@@ -44,11 +47,13 @@ class AppForms{
     }
 
     static signup(){
-        let form = new FormBuilder()
-        form.addInputElement('text', 'username')
-        form.addInputElement('password', 'password')
-        form.addInputElement('text', 'firstName')
-        form.addInputElement('text', 'lastName')
+        let form_elements = {
+            'username': 'text',
+            'password': 'password',
+            'firstName': 'text',
+            'lastName': 'text'
+        }
+        let form = new FormBuilder(form_elements)
 
         let formFooter = document.createElement('span')
         formFooter.innerHTML = "Already have an account?  "
@@ -89,6 +94,7 @@ class AppForms{
 
         return form.addSubmitButtonAndFinalize(cbOnSubmit)
     }
+
 
 
     

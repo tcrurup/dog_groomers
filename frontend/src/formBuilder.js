@@ -1,22 +1,27 @@
 class FormBuilder{
 
     
-    constructor(action, method){
+    constructor(formElements){
         this.form = document.createElement('form')
         this.formTable = document.createElement('table')
         this.form.appendChild(this.formTable)
         this.formRows = [];
+        Object.keys(formElements).forEach( key => {
+            this.addInputElement(key, formElements[key])
+        });
         return this
     }
 
     //**********FUNCTIONS**********
 
-    addInputElement(type, name){        
+    addInputElement(name, type){        
         this.formRows.push(new FormRow().asFormInput(type, name))
+        this
     }
 
     addElementBlock(element){        
         this.formRows.push(new FormRow().asElementBlock(element))
+        this
     }
     
     addSubmitButton(callback){
@@ -25,6 +30,10 @@ class FormBuilder{
         element.addEventListener('click', callback)
         this.form.appendChild(element) 
         return element;
+    }
+
+    addUserFields(){
+
     }
 
     addSubmitButtonAndFinalize(cbOnSubmit){
