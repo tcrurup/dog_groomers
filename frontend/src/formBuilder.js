@@ -1,7 +1,8 @@
 class FormBuilder{
 
     
-    constructor(formElements){
+    constructor(action, formElements){
+        this.action = action
         this.form = document.createElement('form')
         this.formTable = document.createElement('table')
         this.form.appendChild(this.formTable)
@@ -16,12 +17,12 @@ class FormBuilder{
 
     addInputElement(name, type){        
         this.formRows.push(new FormRow().asFormInput(type, name))
-        this
+        return this
     }
 
     addElementBlock(element){        
         this.formRows.push(new FormRow().asElementBlock(element))
-        this
+        return this
     }
     
     addSubmitButton(callback){
@@ -29,12 +30,36 @@ class FormBuilder{
         element.innerHTML = 'Submit'
         element.addEventListener('click', callback)
         this.form.appendChild(element) 
-        return element;
+        return this
     }
 
-    addSubmitButtonAndFinalize(cbOnSubmit){
+    addSubmitButtonAndFinalize(){
         this.addElementBlock(this.footer)
         this._appendAllRowsToTable()
+
+        let cbOnSubmit = event => {
+
+            event.preventDefault();
+
+            let config = {
+                method: "POST",
+                body: this.getFormDataAsJSON(),
+                headers:{
+                    "Content-Type" : "application/json",
+                    "Accept" : "application/json"
+                }
+            }
+
+            fetch(this.action, config)
+            .then(response => response.json())
+            .then(object => {
+                if(object.error){
+                    alert(object.exception);
+                }
+            })
+            .catch(error => alert(error.message))
+        }
+
         this.addSubmitButton(cbOnSubmit)               
         return this.form
     }
@@ -44,6 +69,16 @@ class FormBuilder{
         element.innerHTML = string
         this.footer = element
     }
+
+    getFormDataAsJSON(){
+        let elements = document.querySelectorAll('input')
+        let data = {}
+        elements.forEach( element => {
+            data[element.name] = element.value
+        })
+        return JSON.stringify(data)
+    }
+
 
     //**********STATIC**********
 
